@@ -1,31 +1,23 @@
-# BREAKOUT
+# SPACE INVADERS
 
 
 
-## [Play the Game!](https://nicolapasa.github.io/breakout/)
+## [Play the Game!](https://nicolapasa.github.io/spaceinvaders/)
 
 
 ## Description
-Breakout is a clone of a famous arcade game from Atari. There is a brick wall that you have to destroy. Destroy all bricks with one ball to win. The trajectories of the ball could be unpredictable
+
 
 
 # Main Functionalities
 
-- The pad moves when you push arrowLeft or arrowRight
-- The ball starts to move when you push SPACE
-- The first line of brickets is more resistant, you have to hit two times to destroy completely
-- You have to input your name and then if you realize a good score you can enter in the top score list
-- The game has three balls for the player.
-- The game ends when you lose all balls or if the brickets pass the pad.
-- You win if all brickets are destroyed
+- The ship moves when you push arrowLeft or arrowRight
 - you can turn off the music
 - Hi-Scores are tracked locally with a player name and score.
 
 # Backlog Functionalities
 
-- Adding different types of brickets.
-- Add a type of bricket more resistant.
-- Optimized trajectories of the ball.
+- Adding different types of enemies.
 - Improving the UI and adding music and sound effects.
 - Adding a top score list.
 - Making the game 
@@ -60,17 +52,10 @@ Breakout is a clone of a famous arcade game from Atari. There is a brick wall th
   - move
   - update
   - shoot 
-- ball 
+- enemy.js 
   - move 
   - update 
-  - didCollide 
-  - didCollideWithBorders
-  - changeDirection
-  - checkBallOut
-- block.js 
-  - move 
-  - update 
-  - checkCollidePlayer
+  - checkCollideBottom 
 - handler.js 
   - update 
 - ui.js 
