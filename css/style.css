@@ -1,0 +1,155 @@
+*{
+    box-sizing: border-box;
+    margin:0 ;
+    padding:0;
+    font-family: 'Press Start 2P', cursive;
+    border: none ;
+}
+
+body{
+    background-color: black;
+}
+#game-intro{
+    margin: 0 auto;
+    background: url('../images/bg.png');
+    width:640px;
+    height: 480px;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    animation: slide 5s linear infinite;
+
+}
+#game-over{
+    margin: 0 auto;
+    background: url('../images/bg.png');
+    width:640px;
+    height: 480px;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    display:none;
+
+
+}
+
+#game-intro h1, #game-over h1,  #game-win h1{
+    padding-top: 30%;
+    color:rgb(219, 186, 186);
+    text-shadow: 1px 1px rgba(0,0,0,0.3);
+}
+
+#game-intro h3, #game-over h3,  #game-win h3{
+color:yellow;
+text-shadow: 1px 1px rgba(0,0,0,0.3);
+}
+button {
+    box-shadow: 1px 1px rgba(0,0,0,0.3);
+    padding: 5px 4px;
+    margin-top: 12px;
+    color:white;
+    background-color: brown;
+    border-radius: 5px;
+    border:none
+}
+button:hover{
+    background-color: rgb(98, 21, 21);
+}
+#game-container{
+    display: none;
+    width:640px;
+    height: 480px;
+    margin: 0 auto;
+    background: black;
+    color: aliceblue;
+    
+}
+#scoreboard{
+    display: flex;
+    justify-content: space-between;
+}
+#game-screen, #game-win{
+        margin: 0 auto;
+        background: url('../images/bg.png');
+        width:640px;
+    height: 480px;
+        text-align: center;
+        background-size: cover;
+        background-position: center;
+        position:relative;
+        animation: slide 5s linear infinite;
+    
+    
+}
+#game-win{
+    display: none;
+    border:none;
+}
+
+#namePlayer{
+    margin:0 auto;
+    display:none;
+    text-align: center;
+    line-height: 10px;
+}
+
+#scoreBoardTop{
+    margin: 0 auto;
+    color: aliceblue;
+    justify-content: space-between;
+    text-align: left;
+    width: 100%;
+}
+
+#list div{
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    width: 300px;
+}
+.instructions {
+    padding: 5px;
+    width: 220px;
+    display: flex;
+
+    color:white;
+    margin: 0 auto;
+    flex-direction: column;
+    gap:10px;
+    background-color: rgba(177, 64, 124, 0.726);
+    margin-top: 15px;
+    box-shadow: 1px 1px rgba(0,0,0,0.3);
+    border-radius: 5px;
+}
+.instructions img {
+    width: 30px;
+}
+
+#game-intro h5{color:white; 
+    padding-top: 50px;
+    text-shadow: 1px 1px rgba(0,0,0,0.3);
+}
+.instruction {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 12px;
+ 
+}
+.instruction div{
+    text-align: left;
+    width: 100px;
+}
+
+@keyframes slide {
+    0% {
+      background-position: 0 -1000px;
+    }
+    95% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 0 50px;
+    }
+  }
+  
