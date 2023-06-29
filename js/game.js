@@ -23,6 +23,7 @@ class Game{
         this.blockSound=new Sound(this, './sound/explosion.wav')
         this.musicGame=new Sound(this, './sound/mega.mp3')
         this.save=new Save(this)
+        this.levelManager=new LevelManager(this)
         this.isGameOver=false
         this.enemies=[]
         this.score=0
@@ -35,6 +36,7 @@ class Game{
         this.timerEnd=60000
         this.timer=0
         this.explosions=[]
+        this.currentEnemiesDestroyed=0
 
 
     }
@@ -46,19 +48,46 @@ class Game{
         this.name=this.namePlayerInput.value
         this.save.initGame()
         
-        this.enemiesInterval()
+        this.enemiesInterval(this.levelManager.levelSetup[this.levelManager.currentLevel-1].timeSpawn)
           
-
+        this.levelManager.currentLevel=1
      
         this.gameLoop()
     }
 
-   enemiesInterval(){
+   resetLevel(){
+    clearInterval(this.idInterval)
+    this.currentEnemiesDestroyed=0
+    this.levelManager.next()
+
+    if(this.levelManager.currentLevel>this.levelManager.levels) {
+        this.end = true 
+        this.gameWin=true
+    }
+    else{
+   // console.log("current level" +this.levelManager.currentLevel)
+    this.enemiesInterval(this.levelManager.levelSetup[this.levelManager.currentLevel-1].timeSpawn)
+    //this.gameLoop()
+    }   
+    
+
+   }
+
+   reset(){
+    this.enemies.forEach(enemy=> {
+       enemy.element.remove()
+    })
+    this.enemies=[]
+    this.gameScreen.appendChild(this.player.pad)
+    this.player.lives-=1
+   }
+
+   enemiesInterval(timeInterval){
     this.makeEnemies()
      this.idInterval  = setInterval(()=>{
         this.makeEnemies()
-        this.timer+=4000
-         }, 4000)
+       // this.timer+=4000
+         }, timeInterval)
 
    }
    
@@ -79,10 +108,18 @@ class Game{
       
     }
    }
-
+   
+   checkEnemiesDestroyed(){
+      
+        if(this.currentEnemiesDestroyed>= this.levelManager.levelSetup[this.levelManager.currentLevel-1].enemiesToDestroy){
+            this.resetLevel()
+        }
+        
+   }
 
     update(){
-        this.checkTimer()
+       // this.checkTimer()
+        this.levelManager.update()
         this.soundController()
         this.player.move()
         this.handler.update()
@@ -93,9 +130,26 @@ class Game{
             enemy.move()
             enemy.checkCollideBottom()
             if(this.player.didCollide(enemy.element)){
-                this.isGameOver=true 
-                this.end=true
+                //this.lives-=1
+                this.blockSound.play()
+                this.explosions.push(new Effects(this, enemy.posx, enemy.posy))
+                this.player.hit()
+                
             }
+    //         enemy.projectiles.forEach(projectile=> {
+    //             projectile.checkFireOut()
+    //             if(projectile.didCollide(this.player.pad)){
+    //                 this.blockSound.play()
+    //                 this.explosions.push(new Effects(this, this.player.left, this.player.top))
+    //                 this.lives-=1
+    //                  projectile.toDeleting=true 
+    //                  projectile.element.remove()
+ 
+                
+    //          }
+    //  })
+                    
+           
             this.player.projectiles.forEach(projectile=> {
                 projectile.checkFireOut()
 
@@ -103,6 +157,7 @@ class Game{
                 if(projectile.didCollide(enemy.element)){
                            this.blockSound.play()
                            this.explosions.push(new Effects(this, enemy.posx, enemy.posy))
+                           this.currentEnemiesDestroyed+=1
                             enemy.toDeleting=true;
                             enemy.element.remove()
                             projectile.toDeleting=true 
@@ -116,7 +171,7 @@ class Game{
 
         })    
 
-
+        this.checkEnemiesDestroyed()
         this.enemies= this.enemies.filter(enemy=>!enemy.toDeleting)
         this.player.projectiles= this.player.projectiles.filter(projectile=>!projectile.toDeleting)
         this.explosions= this.explosions.filter(explosion=>!explosion.toDeleting)
@@ -124,11 +179,11 @@ class Game{
         
         this.ui.update()
 
-        if(this.enemies.length===0) {
-            this.gameWin=true 
-            this.end=true
-            //this.endGame()
-        }
+        // if(this.enemies.length===0) {
+        //   //  this.gameWin=true 
+        //   //  this.end=true
+        //         this.resetLevel()
+        // }
 
     }
 
@@ -166,7 +221,7 @@ class Game{
 
     soundController(){
         this.btnAudioController.addEventListener('click', (event)=>{
-            event.preventDefault()
+            this.btnAudioController.blur()
             if(this.soundOn){
               this.musicGame.stop()
               this.btnAudioController.innerText='Play Music'

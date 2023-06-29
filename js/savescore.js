@@ -49,8 +49,13 @@ class Save{
     loadScore(){
         this.topScore= JSON.parse(localStorage.getItem("topScoreSpace"))
         this.topScore.sort((a, b)=>a.score-b.score ).reverse()
+        let count=0
         this.topScore.forEach(place=>{
-           this.game.listScore.innerHTML+='<div><p>'+place.name+'</p>'+' <span> '+place.score+'</span></div>' 
+            count++ 
+            if(count<=10){
+                this.game.listScore.innerHTML+='<div><p>'+place.name+'</p>'+' <span> '+place.score+'</span></div>' 
+            }
+         
       })
     }
 }

@@ -11,7 +11,7 @@ class Player{
         this.width=96
         this.height=32
         this.left=300 
-        this.top=this.game.height -this.height -8
+        this.top=this.game.height -this.height -20
         this.pad.style.position='absolute'
         this.pad.style.top=`${this.top}px`
         this.pad.style.left=`${this.left}px`
@@ -19,6 +19,7 @@ class Player{
         this.projectiles=[];
         this.directionX=0 
         this.speed=5
+        this.lives=3
     
     }
 
@@ -48,7 +49,19 @@ class Player{
         this.projectiles.push(new Fire(this.game))
    
     }
-
+    hit(){
+       this.pad.remove()
+       
+       this.resetPlayer()
+       if(this.lives<=0){
+        this.game.end=true 
+        this.game.isGameOver=true
+       }
+    }
+    resetPlayer(){
+      this.game.reset()
+  
+    }
     didCollide(element){
         const enemyRect = element.getBoundingClientRect();
         const ballRect = this.pad.getBoundingClientRect();

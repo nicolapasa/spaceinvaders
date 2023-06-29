@@ -22,11 +22,14 @@ class Enemy{
         this.element.style.width=`${this.width}px`
         this.game.gameScreen.appendChild(this.element)
         this.directions=[1,-1]
-        this.direction=this.directions[Math.floor(Math.random()*(1-0+1)+0)]
+        this.direction=this.directions[Math.floor(Math.random()*(1-0+1))+0]
+        this.projectiles=[]
+     
     }
 
 
     move(){
+        console.log("speed" , this.speed)
         this.posy+=this.speed
         this.posx+=this.direction*this.speed;
         if(this.posx<10) {
@@ -42,9 +45,16 @@ class Enemy{
     update(){
         this.element.style.top=`${this.posy}px`
         this.element.style.left=`${this.posx}px`
+       // this.fire()
     }
 
-   
+   fire(){
+  
+       setInterval(()=>{
+         this.projectiles.push(new EnemyFire(this.game, this))
+       }, 2000)
+
+   }
 
     checkCollideBottom(){
 

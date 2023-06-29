@@ -24,7 +24,6 @@ class Effects{
 
     update(){
         this.timer+=1
-        console.log(this.timer)
         this.checkTimer()
     }
 

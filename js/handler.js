@@ -3,8 +3,16 @@ class HandleInput{
 
     constructor(game){
         this.game=game 
-    }
+        this.timer=500
+        this.canShoot=true
+        setInterval(()=>{
+            this.canShoot=true
+        }, this.timer)
 
+    }
+    
+
+    
 
     update(){
 
@@ -24,7 +32,11 @@ class HandleInput{
                         this.game.player.directionX=1
                     break;
                     case ' ':
-                        if(this.game.player.projectiles.length===0)      this.game.player.shoot()
+                       if(this.canShoot){
+                        this.game.player.shoot()
+                        this.canShoot=false
+                       }      
+                     
                     break;
                    
                    }

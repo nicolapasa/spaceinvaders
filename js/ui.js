@@ -5,6 +5,7 @@ class UI{
  
      this.game=game
      this.scoreBoard=document.getElementById("score")
+     this.levelBoard=document.getElementById("level")
      this.lifeBoard=document.getElementById("lives")
      this.finalScoreOver=document.getElementById("finalScoreOver")
    
@@ -13,7 +14,8 @@ class UI{
  
     update(){
      this.scoreBoard.innerText=this.game.score 
-     this.lifeBoard.innerText=this.game.lives 
+     this.levelBoard.innerText=this.game.levelManager.currentLevel
+     this.lifeBoard.innerText=this.game.player.lives 
      this.finalScoreOver.innerText=this.game.score 
 
     }
